@@ -5,6 +5,10 @@ import './Sidebar.css'
 import './Main.css'
 
 function App() {
+
+  const [github_username,setGithubUsername]= useState('');
+  const [techs,setTechs]= useState('');
+
   const [latitude,setLatitude]= useState('');
   const [longitude,setLongitude]= useState('');
   useEffect(()=>{
@@ -23,19 +27,35 @@ function App() {
     )
   },[])
 
+  async function handleAddDev(e){
+    e.preventDefault()
+  }  
+
   return (
     <div id="App">
         <aside>
           <strong>Register</strong>
-          <form>
+          <form onSubmit={handleAddDev}>
             <div className="input_block">
               <label htmlFor="github_user_name">Github User</label>
-              <input name="github_username" id="github_user_name" required/>
+              <input 
+                  name="github_username" 
+                  id="github_user_name" 
+                  required
+                  value={github_username}
+                  onChange={e=>setGithubUsername(e.target.value)}
+              />
             </div>
             
             <div className="input_block">
               <label htmlFor="techs">Techs</label>
-              <input name="techs" id="techs" required/>
+              <input 
+                  name="techs" 
+                  id="techs" 
+                  required
+                  value={techs}
+                  onChange={e=>setTechs(e.target.value)}
+              />
             </div>
 
             <div className="input_group">
