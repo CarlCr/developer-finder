@@ -4,8 +4,8 @@ const cors = require('cors')
 const routes = require('./routes')
 const app = express()
 
-// adiciona aqui as suas configurações do mongobd
-mongoose.connect('mongodb+srv://<user>:<password>@cluster0-efoe3.mongodb.net/test?retryWrites=true&w=majority',{
+// add your mongobd settings here
+mongoose.connect('mongodb+srv://omnistack:omnistack@cluster0-kdxee.mongodb.net/week10?retryWrites=true&w=majority',{
   useNewUrlParser: true,
   useFindAndModify: true,
   useUnifiedTopology: true
