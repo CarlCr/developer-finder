@@ -4,4 +4,23 @@
     margin: 0 auto;
     display: flex;
     flex-direction: row;
+    align-items: flex-start;
+}
+
+#App main{
+    margin-left: 30px;
+}
+
+@media(max-width:1000px){
+    #App{
+        flex-direction: column;
+    }
+
+    #App main{
+        margin-left: 0;
+        margin-top: 30px;
+    }
+    #App aside{
+        width: 100%;
+    }
 }
