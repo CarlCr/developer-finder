@@ -1,10 +1,14 @@
 import React,{useState,useEffect} from 'react';
+import api from './services/api'
+import DevItem from './components/DevItem'
 import './Global.css'
 import './App.css'
 import './Sidebar.css'
 import './Main.css'
 
 function App() {
+
+  const [devs, setDevs]= useState([]);
 
   const [github_username,setGithubUsername]= useState('');
   const [techs,setTechs]= useState('');
@@ -27,8 +31,26 @@ function App() {
     )
   },[])
 
+  useEffect(()=>{
+    async function loadDevs(){
+        const response = await api.get('/devs')
+        setDevs(response.data)
+    }
+    loadDevs()
+  },[])
+
   async function handleAddDev(e){
     e.preventDefault()
+    const response= await api.post('/devs', {
+      github_username,
+      techs,
+      latitude,
+      longitude
+    })
+    setGithubUsername('')
+    setTechs('')
+
+    setDevs([...devs, response.data])
   }  
 
   return (
@@ -85,51 +107,10 @@ function App() {
       </aside>
       <main>
         <ul>
-          <li className="dev-item">
-            <header className="xtx">
-              <img  src="https://avatars3.githubusercontent.com/u/40358039?s=460&v=4" alt="user avatar"/>
-              <div className="user-info">
-                <strong>Carlos Garcia</strong>
-                <span>React Js, React Native, Node.Js</span>
-              </div>
-            </header>
-            <p>I don´t want to tell my dreams. I want to show them. </p>
-            <a href="https://github.com/carlcr">Go to github</a>
-          </li>
-          <li className="dev-item">
-            <header className="xtx">
-              <img  src="https://avatars3.githubusercontent.com/u/40358039?s=460&v=4" alt="user avatar"/>
-              <div className="user-info">
-                <strong>Carlos Garcia</strong>
-                <span>React Js, React Native, Node.Js</span>
-              </div>
-            </header>
-            <p>I don´t want to tell my dreams. I want to show them. </p>
-            <a href="https://github.com/carlcr">Go to github</a>
-          </li>
-          <li className="dev-item">
-            <header >
-              <img  src="https://avatars3.githubusercontent.com/u/40358039?s=460&v=4" alt="user avatar"/>
-              <div className="user-info">
-                <strong>Carlos Garcia</strong>
-                <span>React Js, React Native, Node.Js</span>
-              </div>
-            </header>
-            <p>I don´t want to tell my dreams. I want to show them. </p>
-            <a href="https://github.com/carlcr">Go to github</a>
-          </li>
-          <li className="dev-item">
-            <header >
-              <img  src="https://avatars3.githubusercontent.com/u/40358039?s=460&v=4" alt="user avatar"/>
-              <div className="user-info">
-                <strong>Carlos Garcia</strong>
-                <span>React Js, React Native, Node.Js</span>
-              </div>
-            </header>
-            <p>I don´t want to tell my dreams. I want to show them. </p>
-            <a href="https://github.com/carlcr">Go to github</a>
-          </li>
-        </ul>
+          {devs.map(dev=>(
+            <DevItem key={dev._id}  dev={dev} />
+          ))}
+          </ul>
       </main>
     </div>
   );
