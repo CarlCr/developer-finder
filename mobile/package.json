@@ -8,7 +8,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "@react-native-community/masked-view": "^     <View></View>     <View></View>.1.6",
+    "@react-native-community/masked-view": "^0.1.6",
     "expo": "~36.0.0",
     "expo-location": "^8.0.0",
     "react": "~16.9.0",
